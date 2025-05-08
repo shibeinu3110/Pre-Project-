@@ -18,7 +18,6 @@ public class PromotionDto {
     private Long id;
     @NotNull(message = "employee id can't be null")
     private Long employeeId;
-    @NotNull(message = "leader id can't be null")
     private Long leaderId;
     private LocalDate createDate;
     private String createdBy;

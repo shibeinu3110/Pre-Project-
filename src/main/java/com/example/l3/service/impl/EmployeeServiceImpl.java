@@ -1,5 +1,7 @@
 package com.example.l3.service.impl;
 
+import com.example.l3.commons.exception.ErrorMessages;
+import com.example.l3.commons.exception.OctException;
 import com.example.l3.dto.EmployeeDto;
 import com.example.l3.helper.JsonHelper;
 import com.example.l3.service.EmployeeService;
@@ -55,7 +57,7 @@ public class EmployeeServiceImpl implements EmployeeService {
                 .registerStoredProcedureParameter(EMPLOYEE_ID, Long.class, ParameterMode.IN)
                 .setParameter(EMPLOYEE_ID, employeeId);
         Object result = query.getSingleResult();
-        System.out.println(result.getClass());
+
         return (EmployeeDto) result;
     }
 
@@ -89,13 +91,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             minioService.deleteImage(oldImageUrl);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new OctException(ErrorMessages.NOT_FOUND, "can't find image with url: " + oldImageUrl);
         }
-        //handle db
-        deleteEmployee(employeeId);
-        createEmployee(employeeDto, file);
 
+        String newImageUrl;
+        try {
+            newImageUrl = minioService.uploadImage(file);
+        } catch (Exception e) {
+            throw new OctException(ErrorMessages.NOT_ALLOW_UPDATE, "can't upload image");
+        }
+        employeeDto.setImageUrl(newImageUrl);
 
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery(UPDATE_EMPLOYEE, EMPLOYEE_DTO_MAPPER)
+                .registerStoredProcedureParameter(EMPLOYEE_ID, Long.class, ParameterMode.IN)
+                .setParameter(EMPLOYEE_ID, employeeId)
+                .registerStoredProcedureParameter(EMPLOYEE_JSON, String.class, ParameterMode.IN)
+                .setParameter(EMPLOYEE_JSON, JsonHelper.toJson(employeeDto));
+        query.execute();
         return getEmployeeById(employeeId);
     }
 

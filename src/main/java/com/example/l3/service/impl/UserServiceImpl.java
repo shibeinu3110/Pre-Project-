@@ -8,6 +8,7 @@ import com.example.l3.request.LoginRequestDto;
 import com.example.l3.response.LoginResponseDto;
 import com.example.l3.security.JwtProvider;
 import com.example.l3.service.UserService;
+import com.example.l3.validator.UserValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
@@ -25,14 +26,18 @@ import java.util.stream.Collectors;
 import static com.example.l3.consts.StoredProcedureConst.User.CREATE_USER;
 import static com.example.l3.consts.StoredProcedureConst.Parameter.USER_JSON;
 import static com.example.l3.consts.StoredProcedureConst.Mapper.USER_DTO_MAPPER;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final EntityManager entityManager;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
+    private final UserValidator userValidator;
+
     @Override
     public UserDto register(UserDto userDto) {
+        userValidator.checkUser(userDto);
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(CREATE_USER, USER_DTO_MAPPER)
                 .registerStoredProcedureParameter(USER_JSON, String.class, ParameterMode.IN)
                 .setParameter(USER_JSON, JsonHelper.toJson(userDto));
@@ -46,7 +51,7 @@ public class UserServiceImpl implements UserService {
 
         Authentication authentication =
                 authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequestDto.getUsername(), loginRequestDto.getPassword()));
-        if(authentication.isAuthenticated()) {
+        if (authentication.isAuthenticated()) {
             loginResponseDto.setUsername(loginRequestDto.getUsername());
             loginResponseDto.setToken(jwtProvider.generateToken(loginRequestDto.getUsername()));
 

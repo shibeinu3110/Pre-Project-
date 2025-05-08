@@ -116,10 +116,7 @@ public class SalaryIncrementServiceImpl implements SalaryIncrementService {
                 .setParameter(Parameter.SALARY_INCREMENT_ID, id)
                 .registerStoredProcedureParameter(Parameter.SALARY_INCREMENT_JSON, String.class, ParameterMode.IN)
                 .setParameter(Parameter.SALARY_INCREMENT_JSON, JsonHelper.toJson(salaryIncrementDto));
-
         query.execute();
-
-
         return getSalaryIncrementById(id);
     }
 

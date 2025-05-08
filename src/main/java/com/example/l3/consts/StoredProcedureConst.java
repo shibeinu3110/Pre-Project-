@@ -60,6 +60,9 @@ public class StoredProcedureConst {
     public static class User {
         public static final String GET_USER_BY_USERNAME = "get_user_by_username";
         public static final String CREATE_USER = "create_user";
+        public static final String EXIST_USER_BY_PHONE = "exist_user_by_phone";
+        public static final String EXIST_USER_BY_USERNAME = "exist_user_by_username";
+        public static final String EXIST_USER_BY_EMAIL = "exist_user_by_email";
     }
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -75,12 +78,14 @@ public class StoredProcedureConst {
         public static final String EXIST_EMPLOYEE_BY_POSTCODE = "exist_employee_by_postcode";
         public static final String EXIST_EMPLOYEE_BY_PHONE = "exist_employee_by_phone";
         public static final String EXIST_EMPLOYEE_BY_EMPLOYEE_CODE = "exist_employee_by_employee_code";
+        public static final String UPDATE_EMPLOYEE = "update_employee";
 
 
         public static final String DELETE_EMPLOYEE_BY_ID = "delete_employee_by_id";
         public static final String EXIST_EMPLOYEE_BY_ID = "exist_employee_by_id";
         public static final String GET_ALL_EMPLOYEE = "get_all_employee";
     }
+
 
     @NoArgsConstructor(access = AccessLevel.PRIVATE)
     public static class Certificate {
