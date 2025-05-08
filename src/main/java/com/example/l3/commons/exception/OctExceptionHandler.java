@@ -16,8 +16,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
-//import javax.validation.ConstraintViolationException;
-import javax.naming.AuthenticationException;
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;

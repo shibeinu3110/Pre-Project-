@@ -3,9 +3,7 @@ package com.example.l3.controller;
 import com.example.l3.commons.OctResponse;
 import com.example.l3.dto.EmployeeDto;
 import com.example.l3.service.EmployeeService;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,6 +38,7 @@ public class EmployeeController {
                                                    @RequestPart("file") MultipartFile file) {
         return OctResponse.build(employeeService.updateEmployee(id, employeeDto, file), "update employee with id: " + id + " successfully");
     }
+
     @GetMapping("/getAll")
     public OctResponse<List<EmployeeDto>> getAllEmployee() {
         return OctResponse.build(employeeService.getAllEmployee(), "get all employee successfully");

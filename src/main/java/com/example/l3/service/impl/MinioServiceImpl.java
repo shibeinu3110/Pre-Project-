@@ -7,11 +7,10 @@ import io.minio.PutObjectArgs;
 import io.minio.RemoveObjectArgs;
 import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
@@ -22,8 +21,9 @@ public class MinioServiceImpl implements MinioService {
     private final MinioClient minioClient;
     @Value("${minio.bucketName}")
     private String bucketName;
+
     @Override
-    public String uploadImage(MultipartFile file) throws Exception{
+    public String uploadImage(MultipartFile file) throws Exception {
         String objectName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
 
         // Lưu ảnh vào MinIO
@@ -61,7 +61,6 @@ public class MinioServiceImpl implements MinioService {
                         .build()
         );
     }
-
 
 
 }

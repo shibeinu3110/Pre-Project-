@@ -3,7 +3,6 @@ package com.example.l3.controller;
 import com.example.l3.commons.OctResponse;
 import com.example.l3.dto.ProfileEndDto;
 import com.example.l3.service.ProfileEndService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

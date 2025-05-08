@@ -13,7 +13,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,9 +22,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.example.l3.consts.StoredProcedureConst.User.CREATE_USER;
-import static com.example.l3.consts.StoredProcedureConst.Parameter.USER_JSON;
 import static com.example.l3.consts.StoredProcedureConst.Mapper.USER_DTO_MAPPER;
+import static com.example.l3.consts.StoredProcedureConst.Parameter.USER_JSON;
+import static com.example.l3.consts.StoredProcedureConst.User.CREATE_USER;
 
 @Service
 @RequiredArgsConstructor

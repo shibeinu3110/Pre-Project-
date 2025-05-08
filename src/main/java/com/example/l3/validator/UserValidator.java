@@ -3,7 +3,6 @@ package com.example.l3.validator;
 import com.example.l3.commons.exception.ErrorMessages;
 import com.example.l3.commons.exception.OctException;
 import com.example.l3.consts.ConstParameter;
-import com.example.l3.dto.EmployeeDto;
 import com.example.l3.dto.UserDto;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
@@ -15,8 +14,8 @@ import org.springframework.util.ObjectUtils;
 import java.util.regex.Pattern;
 
 import static com.example.l3.consts.ConstParameter.PHONE_REGEX;
-import static com.example.l3.consts.StoredProcedureConst.User.*;
 import static com.example.l3.consts.StoredProcedureConst.Parameter.*;
+import static com.example.l3.consts.StoredProcedureConst.User.*;
 
 @Component
 @RequiredArgsConstructor

@@ -1,7 +1,6 @@
 package com.example.l3.service.impl;
 
 import com.example.l3.consts.Status;
-import com.example.l3.consts.StoredProcedureConst;
 import com.example.l3.dto.ProfileEndDto;
 import com.example.l3.helper.JsonHelper;
 import com.example.l3.service.ProfileEndService;
@@ -12,9 +11,7 @@ import com.example.l3.validator.StatusValidator;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
-import org.springframework.jdbc.object.StoredProcedure;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -22,7 +19,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.l3.consts.StoredProcedureConst.*;
 
@@ -105,7 +101,7 @@ public class ProfileEndServiceImpl implements ProfileEndService {
 
         profileEndDto.setStatus(Status.PENDING.getValue());
         profileEndDto.setSubmitDate(LocalDate.now());
-        
+
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(ProfileEnd.SUBMIT_PROFILE_END, Mapper.PROFILE_END_DTO_MAPPER)
                 .registerStoredProcedureParameter(Parameter.PROFILE_END_ID, Long.class, ParameterMode.IN)
                 .setParameter(Parameter.PROFILE_END_ID, id)

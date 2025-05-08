@@ -1,7 +1,6 @@
 package com.example.l3.service.impl;
 
 import com.example.l3.consts.Status;
-import com.example.l3.consts.StoredProcedureConst;
 import com.example.l3.dto.PromotionDto;
 import com.example.l3.helper.JsonHelper;
 import com.example.l3.service.PromotionService;
@@ -144,8 +143,8 @@ public class PromotionServiceImpl implements PromotionService {
 
     private List<PromotionDto> mapObjectListToPromotionList(List<Object> objectList) {
         List<PromotionDto> promotionDtoList = new ArrayList<>();
-        for(Object object : objectList) {
-            if(object instanceof  PromotionDto) {
+        for (Object object : objectList) {
+            if (object instanceof PromotionDto) {
                 promotionDtoList.add((PromotionDto) object);
             }
         }

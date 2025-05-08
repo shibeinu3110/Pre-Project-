@@ -1,6 +1,5 @@
 package com.example.l3.service.impl;
 
-import com.example.l3.dto.CertificateDto;
 import com.example.l3.dto.RelationshipDto;
 import com.example.l3.helper.JsonHelper;
 import com.example.l3.service.RelationshipService;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import static com.example.l3.consts.StoredProcedureConst.*;
 
@@ -24,6 +22,7 @@ public class RelationshipServiceImpl implements RelationshipService {
     private final EntityManager entityManager;
     private final EmployeeValidator employeeValidator;
     private final RelationshipValidator relationshipValidator;
+
     @Override
     public RelationshipDto createRelationship(RelationshipDto relationshipDto) {
         employeeValidator.existById(relationshipDto.getEmployeeId());
@@ -91,8 +90,8 @@ public class RelationshipServiceImpl implements RelationshipService {
 
     private List<RelationshipDto> mapObjectToRelationship(List<Object> objectList) {
         List<RelationshipDto> relationshipDtoList = new ArrayList<>();
-        for(Object object : objectList) {
-            if(object instanceof RelationshipDto) {
+        for (Object object : objectList) {
+            if (object instanceof RelationshipDto) {
                 relationshipDtoList.add((RelationshipDto) object);
             }
         }

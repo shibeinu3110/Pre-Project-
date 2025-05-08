@@ -1,6 +1,5 @@
 package com.example.l3.service;
 
-import com.example.l3.dto.ProposalAdviceDto;
 import com.example.l3.dto.RegistrationDto;
 
 import java.util.List;

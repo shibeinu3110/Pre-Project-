@@ -1,7 +1,6 @@
 package com.example.l3.service.impl;
 
 import com.example.l3.consts.Status;
-import com.example.l3.dto.ProposalAdviceDto;
 import com.example.l3.dto.RegistrationDto;
 import com.example.l3.helper.JsonHelper;
 import com.example.l3.service.RegistrationService;
@@ -138,7 +137,6 @@ public class RegistrationServiceImpl implements RegistrationService {
         }
 
 
-
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(Registration.UPDATE_REGISTRATION_BY_LEADER, Mapper.PROPOSAL_ADVICE_DTO_MAPPER)
                 .registerStoredProcedureParameter(Parameter.REGISTRATION_ID, Long.class, ParameterMode.IN)
                 .setParameter(Parameter.REGISTRATION_ID, id)
@@ -150,8 +148,8 @@ public class RegistrationServiceImpl implements RegistrationService {
 
     private List<RegistrationDto> mapObjectListToRegistrationList(List<Object> objectList) {
         List<RegistrationDto> registrationDtoList = new ArrayList<>();
-        for(Object object : objectList) {
-            if(object instanceof RegistrationDto) {
+        for (Object object : objectList) {
+            if (object instanceof RegistrationDto) {
                 registrationDtoList.add((RegistrationDto) object);
             }
         }

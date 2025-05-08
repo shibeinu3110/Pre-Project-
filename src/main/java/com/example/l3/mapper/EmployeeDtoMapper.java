@@ -1,7 +1,6 @@
 package com.example.l3.mapper;
 
 import com.example.l3.dto.EmployeeDto;
-import com.example.l3.dto.UserDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

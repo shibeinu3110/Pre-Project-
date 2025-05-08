@@ -1,7 +1,6 @@
 package com.example.l3.mapper;
 
 import com.example.l3.consts.StoredProcedureConst;
-import com.example.l3.dto.ProposalAdviceDto;
 import com.example.l3.dto.RegistrationDto;
 import jakarta.persistence.*;
 

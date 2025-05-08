@@ -1,7 +1,6 @@
 package com.example.l3.service;
 
 import com.example.l3.dto.ProposalAdviceDto;
-import com.example.l3.dto.RegistrationDto;
 
 import java.util.List;
 
@@ -9,6 +8,7 @@ public interface ProposalAdviceService {
     ProposalAdviceDto createProposal(ProposalAdviceDto proposalAdviceDto);
 
     ProposalAdviceDto getProposal(Long id);
+
     List<ProposalAdviceDto> getAllProposal();
 
     void deleteProposal(Long id);

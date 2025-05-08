@@ -1,11 +1,12 @@
 package com.example.l3.mapper;
 
-import com.example.l3.dto.EmployeeDto;
 import com.example.l3.dto.RelationshipDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import static com.example.l3.consts.StoredProcedureConst.*;
+
+import static com.example.l3.consts.StoredProcedureConst.Mapper;
+
 @Entity
 @SqlResultSetMapping(
         name = Mapper.RELATIONSHIP_DTO_MAPPER,

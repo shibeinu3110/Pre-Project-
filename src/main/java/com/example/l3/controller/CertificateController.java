@@ -4,7 +4,6 @@ import com.example.l3.commons.OctResponse;
 import com.example.l3.dto.CertificateDto;
 import com.example.l3.service.CertificateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,10 +13,11 @@ import java.util.List;
 @RequestMapping("/certificate")
 public class CertificateController {
     private final CertificateService certificateService;
+
     @PostMapping()
     public OctResponse<CertificateDto> createCertificate(@RequestBody CertificateDto certificateDto) {
         CertificateDto certificateDto1 = certificateService.createCertificate(certificateDto);
-        return OctResponse.build(certificateDto1,"create new certificate successfully");
+        return OctResponse.build(certificateDto1, "create new certificate successfully");
     }
 
 
@@ -43,6 +43,7 @@ public class CertificateController {
 
         return OctResponse.build(certificateDtoList, "get all certificates of employee with id: " + id);
     }
+
     @PutMapping("/{id}")
     public OctResponse<CertificateDto> updateCertificate(@PathVariable("id") Long id,
                                                          @RequestBody CertificateDto certificateDto) {

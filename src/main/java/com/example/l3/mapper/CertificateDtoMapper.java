@@ -1,12 +1,10 @@
 package com.example.l3.mapper;
 
+import com.example.l3.consts.StoredProcedureConst.Mapper;
 import com.example.l3.dto.CertificateDto;
-import com.example.l3.dto.EmployeeDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
-
-import com.example.l3.consts.StoredProcedureConst.*;
 
 
 @Entity

@@ -15,9 +15,9 @@ import java.util.regex.Pattern;
 
 import static com.example.l3.consts.ConstParameter.EMPTY_INDEX;
 import static com.example.l3.consts.ConstParameter.POSTCODE_REGEX;
-import static com.example.l3.consts.StoredProcedureConst.*;
-import static com.example.l3.consts.StoredProcedureConst.Employee.EXIST_EMPLOYEE_BY_POSTCODE;
+import static com.example.l3.consts.StoredProcedureConst.Parameter;
 import static com.example.l3.consts.StoredProcedureConst.Parameter.POSTCODE;
+import static com.example.l3.consts.StoredProcedureConst.Relationship;
 
 @Component
 @RequiredArgsConstructor
@@ -26,14 +26,14 @@ public class RelationshipValidator {
 
     public void checkValidRelationship(RelationshipDto relationshipDto) {
         checkPostcodeFormat(relationshipDto.getPostcode());
-        if(checkDuplicatePostcode(relationshipDto.getPostcode())) {
+        if (checkDuplicatePostcode(relationshipDto.getPostcode())) {
             throw new OctException(ErrorMessages.DUPLICATE, "duplicate postcode");
         }
     }
 
     public void checkRelationshipForUpdate(RelationshipDto relationship, RelationshipDto currentRelationship) {
         checkPostcodeFormat(relationship.getPostcode());
-        if(!relationship.getPostcode().equals(currentRelationship.getPostcode()) && checkDuplicatePostcode(relationship.getPostcode())) {
+        if (!relationship.getPostcode().equals(currentRelationship.getPostcode()) && checkDuplicatePostcode(relationship.getPostcode())) {
             throw new OctException(ErrorMessages.DUPLICATE, "postcode already exist");
         }
     }
@@ -44,7 +44,7 @@ public class RelationshipValidator {
                 .setParameter(Parameter.RELATIONSHIP_ID, id);
 
         Number result = (Number) query.getSingleResult();
-        if( ObjectUtils.isEmpty(result) || result.intValue() == EMPTY_INDEX) {
+        if (ObjectUtils.isEmpty(result) || result.intValue() == EMPTY_INDEX) {
             throw new OctException(ErrorMessages.NOT_FOUND, "can't find relationship with id: " + id);
         }
     }
@@ -55,7 +55,7 @@ public class RelationshipValidator {
         }
     }
 
-    private boolean checkDuplicatePostcode(String postcode){
+    private boolean checkDuplicatePostcode(String postcode) {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(Relationship.EXIST_RELATIONSHIP_BY_POSTCODE)
                 .registerStoredProcedureParameter(POSTCODE, String.class, ParameterMode.IN)
                 .setParameter(POSTCODE, postcode);

@@ -7,7 +7,10 @@ import com.example.l3.response.LoginResponseDto;
 import com.example.l3.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import static com.example.l3.consts.SecurityConst.SECRET_STRENGTH;
 
@@ -18,6 +21,7 @@ import static com.example.l3.consts.SecurityConst.SECRET_STRENGTH;
 public class SystemController {
     private final UserService userService;
     private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(SECRET_STRENGTH);
+
     @PostMapping("/register")
     public OctResponse<UserDto> register(@RequestBody UserDto userDto) {
         userDto.setPassword(passwordEncoder.encode(userDto.getPassword()));

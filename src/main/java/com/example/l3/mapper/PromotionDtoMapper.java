@@ -2,7 +2,6 @@ package com.example.l3.mapper;
 
 import com.example.l3.consts.StoredProcedureConst;
 import com.example.l3.dto.PromotionDto;
-import com.example.l3.dto.SalaryIncrementDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

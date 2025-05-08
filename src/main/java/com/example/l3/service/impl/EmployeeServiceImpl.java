@@ -21,8 +21,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.l3.consts.StoredProcedureConst.Employee.*;
-import static com.example.l3.consts.StoredProcedureConst.Parameter.*;
 import static com.example.l3.consts.StoredProcedureConst.Mapper.EMPLOYEE_DTO_MAPPER;
+import static com.example.l3.consts.StoredProcedureConst.Parameter.EMPLOYEE_ID;
+import static com.example.l3.consts.StoredProcedureConst.Parameter.EMPLOYEE_JSON;
 
 @Service
 @RequiredArgsConstructor
@@ -68,7 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         try {
             minioService.deleteImage(imageUrl);
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new OctException(ErrorMessages.NOT_FOUND, "can't find image with url: " + imageUrl);
         }
 
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(DELETE_EMPLOYEE_BY_ID)

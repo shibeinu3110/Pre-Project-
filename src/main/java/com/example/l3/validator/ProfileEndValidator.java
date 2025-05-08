@@ -11,12 +11,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import static com.example.l3.consts.ConstParameter.EMPTY_INDEX;
-import static com.example.l3.consts.StoredProcedureConst.*;
+import static com.example.l3.consts.StoredProcedureConst.Parameter;
+import static com.example.l3.consts.StoredProcedureConst.ProfileEnd;
 
 @Component
 @RequiredArgsConstructor
 public class ProfileEndValidator {
     private final EntityManager entityManager;
+
     public void checkExistProfileEnd(Long id) {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(ProfileEnd.EXIST_PROFILE_END_BY_ID)
                 .registerStoredProcedureParameter(Parameter.PROFILE_END_ID, Long.class, ParameterMode.IN)
@@ -34,17 +36,18 @@ public class ProfileEndValidator {
                 .setParameter(Parameter.STORAGE_NUMBER, profileEnd.getStorageNumber());
         Number result = (Number) query.getSingleResult();
 
-        if((!currentProfileEndDto.getStorageNumber().equals(profileEnd.getStorageNumber())) && (result.intValue() != EMPTY_INDEX)) {
+        if ((!currentProfileEndDto.getStorageNumber().equals(profileEnd.getStorageNumber())) && (result.intValue() != EMPTY_INDEX)) {
             throw new OctException(ErrorMessages.DUPLICATE, "storage number: " + profileEnd.getStorageNumber() + " already exists");
         }
     }
+
     public void checkValidStorageNumberForCreate(Long storageNumber) {
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(ProfileEnd.EXIST_PROFILE_END_BY_STORAGE_NUMBER)
                 .registerStoredProcedureParameter(Parameter.STORAGE_NUMBER, Long.class, ParameterMode.IN)
                 .setParameter(Parameter.STORAGE_NUMBER, storageNumber);
         Number result = (Number) query.getSingleResult();
 
-        if(result.intValue() != EMPTY_INDEX) {
+        if (result.intValue() != EMPTY_INDEX) {
             throw new OctException(ErrorMessages.DUPLICATE, "storage number: " + storageNumber + " already exists");
         }
     }

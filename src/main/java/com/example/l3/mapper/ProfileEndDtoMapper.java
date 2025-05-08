@@ -2,7 +2,6 @@ package com.example.l3.mapper;
 
 import com.example.l3.consts.StoredProcedureConst;
 import com.example.l3.dto.ProfileEndDto;
-import com.example.l3.dto.RegistrationDto;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;

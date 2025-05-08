@@ -1,13 +1,11 @@
 package com.example.l3.service.impl;
 
-import com.example.l3.consts.StoredProcedureConst;
 import com.example.l3.dto.CertificateDto;
 import com.example.l3.helper.JsonHelper;
 import com.example.l3.service.CertificateService;
 import com.example.l3.validator.CertificateValidator;
 import com.example.l3.validator.EmployeeValidator;
 import jakarta.persistence.EntityManager;
-
 import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +23,7 @@ public class CertificateServiceImpl implements CertificateService {
     private final EntityManager entityManager;
     private final CertificateValidator certificateValidator;
     private final EmployeeValidator employeeValidator;
+
     @Override
     public CertificateDto createCertificate(CertificateDto certificateDto) {
         employeeValidator.existById(certificateDto.getEmployeeId());
@@ -35,10 +34,10 @@ public class CertificateServiceImpl implements CertificateService {
         return (CertificateDto) query.getSingleResult();
     }
 
-    private List<CertificateDto> mapObjectListToCertificateList(List<Object> objectList ) {
+    private List<CertificateDto> mapObjectListToCertificateList(List<Object> objectList) {
         List<CertificateDto> certificateDtoList = new ArrayList<>();
-        for(Object object : objectList) {
-            if(object instanceof CertificateDto) {
+        for (Object object : objectList) {
+            if (object instanceof CertificateDto) {
                 certificateDtoList.add((CertificateDto) object);
             }
         }
@@ -48,7 +47,7 @@ public class CertificateServiceImpl implements CertificateService {
     @SuppressWarnings("unchecked")
     @Override
     public List<CertificateDto> getAllCertificate() {
-        StoredProcedureQuery query  = entityManager.createStoredProcedureQuery(Certificate.GET_ALL_CERTIFICATE, Mapper.CERTIFICATE_DTO_MAPPER);
+        StoredProcedureQuery query = entityManager.createStoredProcedureQuery(Certificate.GET_ALL_CERTIFICATE, Mapper.CERTIFICATE_DTO_MAPPER);
 
         return mapObjectListToCertificateList(query.getResultList());
     }
