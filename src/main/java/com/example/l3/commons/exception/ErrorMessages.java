@@ -14,16 +14,16 @@ public enum ErrorMessages implements ErrorMessage {
 
     NOT_FOUND(404, "Resource not found"),
     NOT_AUTHENTICATE(32, "Authenticate failed"),
-    DUPLICATE(33,"Duplicate attribute"),
+    DUPLICATE(33, "Duplicate attribute"),
 
-    INVALID_FORMAT(34,"invalid format input"),
+    INVALID_FORMAT(34, "invalid format input"),
 
     INVALID_STATUS(99, "Status invalid"),
     NOT_ALLOW_UPDATE(100, "Status is not allowed to update"),
     NOT_ALLOW(101, "manager are not allowed to do this"),
     UNAUTHORIZED(401, "Unauthorized error"),
-    NOT_ALLOW_LEADER(102, "this leader is not allowed to handle this")
-    ;
+    NOT_ALLOW_LEADER(102, "this leader is not allowed to handle this"),
+    TOKEN_NOT_FOUND(103, "Token not found");
 
     private final int code;
     private final String message;

@@ -13,6 +13,7 @@ import jakarta.persistence.ParameterMode;
 import jakarta.persistence.StoredProcedureQuery;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ import java.util.List;
 import static com.example.l3.consts.StoredProcedureConst.*;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
+@RequiredArgsConstructor
 public class SalaryIncrementServiceImpl implements SalaryIncrementService {
     private final EntityManager entityManager;
     private final EmployeeValidator employeeValidator;
@@ -33,9 +34,11 @@ public class SalaryIncrementServiceImpl implements SalaryIncrementService {
     private final AuthenticationValidator authenticationValidator;
     private final StatusValidator statusValidator;
 
+
     @Override
     public SalaryIncrementDto createSalaryIncrement(SalaryIncrementDto salaryIncrementDto) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
         //validate
         employeeValidator.existById(salaryIncrementDto.getEmployeeId());
 
@@ -53,6 +56,7 @@ public class SalaryIncrementServiceImpl implements SalaryIncrementService {
 
     @Override
     public SalaryIncrementDto getSalaryIncrementById(Long id) {
+
         salaryIncrementValidator.checkExistSalaryIncrement(id);
         StoredProcedureQuery query = entityManager.createStoredProcedureQuery(SalaryIncrement.GET_SALARY_INCREMENT_BY_ID, Mapper.SALARY_INCREMENT_DTO_MAPPER)
                 .registerStoredProcedureParameter(Parameter.SALARY_INCREMENT_ID, Long.class, ParameterMode.IN)

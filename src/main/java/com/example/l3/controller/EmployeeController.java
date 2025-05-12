@@ -4,6 +4,7 @@ import com.example.l3.commons.OctResponse;
 import com.example.l3.dto.EmployeeDto;
 import com.example.l3.service.EmployeeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 

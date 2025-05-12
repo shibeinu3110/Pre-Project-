@@ -5,12 +5,10 @@ import com.example.l3.dto.UserDto;
 import com.example.l3.request.LoginRequestDto;
 import com.example.l3.response.LoginResponseDto;
 import com.example.l3.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.example.l3.consts.SecurityConst.SECRET_STRENGTH;
 
@@ -31,5 +29,10 @@ public class SystemController {
     @PostMapping("/login")
     public OctResponse<LoginResponseDto> login(@RequestBody LoginRequestDto loginRequestDto) {
         return OctResponse.build(userService.login(loginRequestDto));
+    }
+
+    @PostMapping("/logout")
+    public OctResponse<String> logout(HttpServletRequest request) {
+        return OctResponse.build(userService.logout(request));
     }
 }
