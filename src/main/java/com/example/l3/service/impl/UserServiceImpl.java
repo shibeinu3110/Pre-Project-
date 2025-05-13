@@ -25,6 +25,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -83,8 +84,11 @@ public class UserServiceImpl implements UserService {
             throw new OctException(ErrorMessages.TOKEN_NOT_FOUND);
         }
         String username = jwtProvider.extractUsername(token);
+        Date expirationDate = jwtProvider.extractExpiration(token);
+        long timeout = (expirationDate.getTime() - System.currentTimeMillis()) / (1000 * 60); //expiration time in minutes
         if (username != null) {
             redisTemplate.delete(ConstParameter.ACCESS_TOKEN + username);
+            redisTemplate.opsForValue().set(ConstParameter.BLACK_LIST + username, token, timeout, TimeUnit.MINUTES);
             SecurityContextHolder.clearContext();
             return "Logout successful";
         } else {

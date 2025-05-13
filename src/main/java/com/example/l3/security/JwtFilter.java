@@ -1,11 +1,14 @@
 package com.example.l3.security;
 
+import com.example.l3.commons.exception.ErrorMessages;
+import com.example.l3.commons.exception.OctException;
 import com.example.l3.consts.ConstParameter;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationContext;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,14 +16,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import static com.example.l3.consts.SecurityConst.*;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j(topic = "JWT-FILTER")
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtProvider jwtProvider;
     private final ApplicationContext context;
@@ -51,6 +57,11 @@ public class JwtFilter extends OncePerRequestFilter {
 //                SecurityContextHolder.getContext().setAuthentication(authToken);
 //            }
             String storedToken = (String) redisTemplate.opsForValue().get(ConstParameter.ACCESS_TOKEN + username);
+            if (StringUtils.hasLength(redisTemplate.opsForValue().get(ConstParameter.BLACK_LIST + username).toString())) {
+                long minutes = redisTemplate.getExpire(ConstParameter.BLACK_LIST + username, TimeUnit.MINUTES);
+                log.info("Token is blacklisted for {} minutes", minutes);
+                throw new OctException(ErrorMessages.NOT_ALLOW, "Token is blacklisted");
+            }
             if (storedToken != null && storedToken.equals(token)) {
                 UserDetails userDetails = context.getBean(MyUserDetailsService.class).loadUserByUsername(username);
                 if (jwtProvider.validateToken(token, userDetails)) {

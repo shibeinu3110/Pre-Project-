@@ -59,6 +59,11 @@ public class JwtProviderImpl implements JwtProvider {
         return extractClaim(token, Claims::getSubject);
     }
 
+    @Override
+    public Date extractExpiration(String token) {
+        return extractClaim(token, Claims::getExpiration);
+    }
+
     //validate username trong token và trong user details
     //userDetails sẽ là 1 interface bao gồm cac thông tin về user (username, password, authorities)
     @Override
@@ -72,9 +77,6 @@ public class JwtProviderImpl implements JwtProvider {
         return extractExpiration(token).before(new Date());
     }
 
-    private Date extractExpiration(String token) {
-        return extractClaim(token, Claims::getExpiration);
-    }
 
     private Claims extractAllClaims(String token) {
         return Jwts.parser()
